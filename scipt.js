@@ -1,17 +1,17 @@
 const contentWrapper = document.querySelector('.content-wrapper');
 
 function navigateTo(pageIndex) {
-    const slideWidth = 100 * pageIndex; // Calculate the translate value
-    contentWrapper.style.transform = `translateX(-${slideWidth}%)`; }// Apply sliding effect
+    const slideWidth = 100 * pageIndex;
+    contentWrapper.style.transform = `translateX(-${slideWidth}%)`; }
 
     function scrollToSection(index) {
-        const sections = document.querySelectorAll('section'); // Get all sections
-        const targetSection = sections[index]; // Find the target section
-        const offset = targetSection.offsetTop; // Calculate its offset from the top
+        const sections = document.querySelectorAll('section'); 
+        const targetSection = sections[index]; 
+        const offset = targetSection.offsetTop; 
     
-        // Smooth scroll to the section
+       
         window.scrollTo({
-            top: offset - 60, // Adjust for the height of the nav bar
+            top: offset - 60, 
             behavior: 'smooth'
         });
     }
@@ -23,19 +23,19 @@ function navigateTo(pageIndex) {
         }
     });
     
-// Modal functions
+
 function openModal() {
     const modal = document.getElementById('signUpModal');
     modal.style.display = 'flex';
-    modal.classList.add('show'); // Add the show class to trigger the animation
-    document.getElementById('content').style.pointerEvents = 'none'; // Disable interaction with the background
+    modal.classList.add('show'); 
+    document.getElementById('content').style.pointerEvents = 'none'; 
 }
 
 function closeModal() {
     const modal = document.getElementById('signUpModal');
-    modal.classList.remove('show'); // Remove the show class to hide the modal
+    modal.classList.remove('show'); 
     setTimeout(() => {
-        modal.style.display = 'none'; // Hide modal after animation completes
-    }, 500); // This should match the duration of the animation (0.5s)
-    document.getElementById('content').style.pointerEvents = 'auto'; // Re-enable interaction with the background
+        modal.style.display = 'none'; 
+    }, 500); 
+    document.getElementById('content').style.pointerEvents = 'auto'; 
 }
