@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFT Hub</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@400;700&display=swap');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css'); /* Font Awesome for icons */
+
+        
+        :root {
+            --bone: #D8D2C5;
+            --ecru: #D1C46E;
+            --cinnabar: #1B1B1D;
+            --eerie-black: #1B1B1D;
+        }
+
+        
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-image: url('pattern1.png');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #1b1b1d;
+            overflow: hidden; 
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            background-color: var(--eerie-black);
+            z-index: 1000;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--bone);
+            font-weight: bold;
+            margin: 0 20px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: var(--ecru);
+        }
+
+        
+        .sign-up-btn {
+            position: absolute;
+            left: 21px;
+            top: 6px;
+            background-color: var(--cinnabar);
+            border: none;
+            color: var(--bone);
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sign-up-btn:hover {
+            background-color: var(--ecru);
+            color: var(--eerie-black);
+        }
+
+        
+.dropdown-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    margin-top: -4em;
+}
+
+.dropdown label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--eerie-black);
+}
+
+.dropdown select {
+    padding: 10px;
+    border-radius: 32px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    color: rgb(0 0 0 / 56%);
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rank-icon {
+    margin-left: 10px;
+    width: 40px; 
+    height: 40px;
+    vertical-align: middle;
+    border-radius: 5px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+}
+
+
+        
+        .content-wrapper {
+            display: flex; 
+            flex-direction: column;
+            transform: translateY(0); 
+            transition: transform 1s ease-in-out; 
+            z-index: 1; 
+        }
+
+        section {
+            height: 59em; 
+            padding: 20px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box; 
+        }
+
+        
+        .section-header {
+            margin-top: 4px; 
+            margin-bottom: 40px;
+        }
+
+        .section-header h2, .section-header h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: var(--cinnabar);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--eerie-black);
+        }
+
+        .hero button {
+            background-color: var(--cinnabar);
+            border: none;
+            color: var(--bone);
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .hero button:hover {
+            background-color: var(--ecru);
+            color: var(--eerie-black);
+        }
+
+        footer {
+            background-color: var(--eerie-black);
+            padding: 20px;
+            text-align: center;
+            color: var(--bone);
+        }
+
+        footer a {
+            color: var(--bone);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--ecru);
+        }
+
+        
+.modal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; 
+}
+
+
+.modal-content {
+    background-color: var(--bone);
+    padding: 53px;
+    border-radius: 75px;
+    width: 429px;
+    box-shadow: 12px 19px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.5), #e0e0e045);
+    position: relative; 
+    left: 00%; 
+    transition: left 0.6s ease-in-out; 
+}
+
+
+.modal.show .modal-content {
+    left: 50%; 
+    transform: translateX(-50%); 
+}
+
+
+.input-wrapper {
+    position: relative;
+    margin: 14px 0;
+    width: 100%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: var(--eerie-black);
+}
+
+.input-wrapper input {
+    padding: 14px 14px 14px 40px;
+    margin: 0;
+    width: 82%;
+    border: transparent;
+    border-radius: 36px;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+        .close {
+            position: absolute;
+            top: -9px;
+            right: 34px;
+            color: #d8d2c5;
+            font-size: 3.5rem;
+            cursor: pointer;
+        }
+
+        
+        .social-login-buttons {
+            margin-top: 20px;
+        }
+
+        .social-login-buttons a {
+            display: inline-block;
+            width: 24%;
+            text-align: center;
+            background-color: transparent;
+            padding: 12px 0;
+            margin: 11px 0;
+            border-radius: 9px;
+            text-decoration: none;
+            color: rgb(0 0 0 / 56%);;
+            font-size: 3.1rem;
+            transition: background-color 0.3s;
+        }
+
+        .social-login-buttons a:hover {
+            background-color: #e0e0e0;
+        }
+
+        .github { background-color: #333; color: white; }
+        .google { background-color: #db4437; color: white; }
+        .apple { background-color: #333; color: white; }
+        .facebook { background-color: #3b5998; color: white; }
+
+        
+.sign-up-btn::before {
+    content: "\f023"; 
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+
+
+.sign-up-btn:hover::before {
+    content: "\f09c"; 
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <a onclick="scrollToSection(0)" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span class="tooltip">Home</span>
+        </a>
+        <a onclick="scrollToSection(1)" class="nav-item">
+            <i class="fas fa-chess-knight"></i>
+            <span class="tooltip">Champions</span>
+        </a>
+        <a onclick="scrollToSection(2)" class="nav-item">
+            <i class="fas fa-list"></i>
+            <span class="tooltip">Tier List</span>
+        </a>
+       
+        <button class="sign-up-btn" onclick="openModal()">
+         Sign Up
+        </button>
+        
+        
+        
+    </nav>
+    
+
+
+    
+ 
+    <!-- Modal for Sign Up -->
+<div class="modal" id="signUpModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3>Sign Up</h3>
+        <form id="signUpForm" onsubmit="handleSubmit(event)">
+            <div class="input-wrapper">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Username" required>
+            </div>
+            <div class="input-wrapper">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="Email" required>
+            </div>
+            <div class="input-wrapper">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+        
+        <style>
+            .submit-button {
+                color: white;
+                border-color: rgba(0, 0, 0, 0.5);
+                background-color: transparent;
+                border-radius: 20ex;
+                height: 3em;
+                width: 6em;
+                border-inline: 2em;
+                font-size: 1.2rem;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+        
+            .submit-button:hover {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+        </style>
+        
+        <script>
+            function handleSubmit(event) {
+                event.preventDefault();  // Prevents the form from submitting normally
+                const form = document.getElementById('signUpForm');
+        
+                // Here, you can handle form data, e.g., display it or send it to a server.
+                const username = form.querySelector('input[type="text"]').value;
+                const email = form.querySelector('input[type="email"]').value;
+                const password = form.querySelector('input[type="password"]').value;
+        
+                console.log('Form Submitted!');
+                console.log('Username:', username);
+                console.log('Email:', email);
+                console.log('Password:', password);
+            }
+        </script>
+        
+
+        <div class="social-login-buttons">
+            <a href="https://github.com/login/oauth/authorize?client_id=YOUR_GITHUB_CLIENT_ID" class="github"><i class="fab fa-github"></i></a>
+            <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=openid%20profile%20email" class="google"><i class="fab fa-google"></i></a>
+            <a href="https://appleid.apple.com/auth/authorize?client_id=YOUR_APPLE_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=name%20email" class="apple"><i class="fab fa-apple"></i></a>
+            <a href="https://www.facebook.com/v12.0/dialog/oauth?client_id=YOUR_FACEBOOK_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=email" class="facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </div>
+</div>
+
+
+    <div class="content-wrapper" id="content">
+        
+        <section class="hero">
+            <div class="section-header">
+                <h2>Welcome to TFT Hub</h2>
+                <p>Your ultimate source for TFT strategies, builds, and meta insights.</p>
+            </div>
+            <button>Learn More</button>
+        </section>
+
+       
+        <section class="section">
+            <div class="section-header">
+                <h3>Champion Spotlight</h3>
+                <p>Discover the latest strategies and meta shifts with our in-depth guides.</p>
+            </div>
+            <div class="champion-images">
+                <a href="https://leagueoflegends.fandom.com/wiki/Aatrox/TFT#Set_11">
+                    <img src="Champion1.jpg" alt="Champion 1" class="champion-image"></a>
+                <a href="https://leagueoflegends.fandom.com/wiki/Kayn/TFT#Set_11">
+                    <img src="Champion2.jpg" alt="Champion 2" class="champion-image"></a>
+                <a href="https://leagueoflegends.fandom.com/wiki/Caitlyn/TFT#Set_11">
+                    <img src="Champion3.jpg" alt="Champion 3" class="champion-image"></a>
+                <a href="https://leagueoflegends.fandom.com/wiki/Kai%27Sa/TFT#Set_11">
+                    <img src="Champion4.jpg" alt="Champion 4" class="champion-image"></a>
+                <a href="https://leagueoflegends.fandom.com/wiki/Morgana/TFT#Set_11">
+                    <img src="Champion5.jpg" alt="Champion 5" class="champion-image"></a>
+            </div>
+        </section>
+
+        
+        <section class="section">
+            <div class="section-header">
+                <h3>Tier List</h3>
+                <p>Stay ahead of the competition with our regularly updated tier lists.</p>
+            </div>
+            <div class="dropdown-container">
+                
+                <div class="dropdown">
+                    <label for="region-select">Select Region:</label>
+                    <select id="region-select">
+                        <option value="BR">BR</option>
+                        <option value="EUNE">EUNE</option>
+                        <option value="EUW">EUW</option>
+                        <option value="JP">JP</option>
+                        <option value="KR">KR</option>
+                        <option value="LAN">LAN</option>
+                        <option value="LAS">LAS</option>
+                        <option value="ME">ME</option>
+                        <option value="NA">NA</option>
+                        <option value="OCE">OCE</option>
+                        <option value="RU">RU</option>
+                        <option value="TR">TR</option>
+                        <option value="PH">PH</option>
+                        <option value="SG">SG</option>
+                        <option value="TH">TH</option>
+                        <option value="TW">TW</option>
+                        <option value="VN">VN</option>
+                    </select>
+                </div>
+        
+             
+                <div class="dropdown">
+                    <label for="rank-select">Select Rank:</label>
+                    <select id="rank-select">
+                        <option value="Iron">Iron</option>
+                        <option value="Bronze">Bronze</option>
+                        <option value="Silver">Silver</option>
+                        <option value="Gold">Gold</option>
+                        <option value="Platinum">Platinum</option>
+                        <option value="Emerald">Emerald</option>
+                        <option value="Diamond">Diamond</option>
+                        <option value="Master">Master</option>
+                        <option value="Grandmaster">Grandmaster</option>
+                        <option value="Challenger">Challenger</option>
+                    </select>
+                </div>
+            </div>
+        
+
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 TFT Hub. All rights reserved. Riot Games and Team Fight Tactics are trademarks or registered trademarks of Riot Games, Inc.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
+    <script>
+        let currentSection = 0;
+
+        function scrollToSection(index) {
+            const contentWrapper = document.getElementById('content');
+            const sectionHeight = window.innerHeight;
+
+            
+            contentWrapper.style.transform = `translateY(-${index * sectionHeight}px)`;
+
+            
+            currentSection = index;
+        }
+
+        
+        function openModal() {
+            document.getElementById('signUpModal').style.display = 'flex';
+            document.getElementById('content').style.pointerEvents = 'none'; 
+        }
+
+        function closeModal() {
+            document.getElementById('signUpModal').style.display = 'none';
+            document.getElementById('content').style.pointerEvents = 'auto'; 
+        }
+    </script>
+</body>
+</html>
